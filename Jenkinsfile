@@ -3,6 +3,7 @@ pipeline {
   stages {
     stage('preparation') {
       steps {
+        tool(name: 'M3', type: 'maven')
         git(url: 'https://github.com/ktjys/java-WebServer.git', branch: 'master', changelog: true)
         sh '''echo "PATH = ${PATH}"
 echo "M2_HOME = ${M2_HOME}"'''
