@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    kubernetes k8sagent(name: 'jenkins-slave')
+  }
   stages {
     stage('build') {
       steps {
