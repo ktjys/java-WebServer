@@ -11,7 +11,7 @@ echo "M2_HOME = ${M2_HOME}"'''
 
     stage('build') {
       steps {
-        tool 'maven'
+        tool 'M3'
         sh 'mvn -Dmaven.test.failure.ignore clean package'
       }
     }
