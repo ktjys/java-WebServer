@@ -4,6 +4,8 @@ pipeline {
     stage('preparation') {
       steps {
         git(url: 'https://github.com/ktjys/java-WebServer.git', branch: 'master', changelog: true)
+        sh '''echo "PATH = ${PATH}"
+echo "M2_HOME = ${M2_HOME}"'''
       }
     }
 
