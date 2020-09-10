@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    kubernetes k8sagent(name: 'jenkins-slave')
+    label 'jenkins-slave'
   }
   stages {
     stage('build') {
