@@ -44,10 +44,13 @@ spec:
 
       }
       steps {
-        sh '''#!/busybox/sh
+        container(name: 'kaniko', shell: '/busybox/sh') {
+          sh '''#!/busybox/sh
 echo "PATH=$PATH"
 export PATH=$PATH:/kaniko
 /kaniko/executor --context `pwd` --no-push'''
+        }
+
       }
     }
 
