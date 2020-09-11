@@ -9,6 +9,7 @@ pipeline {
       }
       steps {
         sh 'mvn clean install -Dlicense.skip=true'
+        stash 'ARTIFACT'
       }
     }
 
@@ -48,6 +49,7 @@ spec:
       }
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
+          unstash 'ARTIFACT'
           sh '''#!/busybox/sh
 echo "PATH=$PATH"
 export PATH=$PATH:/kaniko
