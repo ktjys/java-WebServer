@@ -50,10 +50,7 @@ spec:
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
           unstash 'ARTIFACT'
-          sh '''#!/busybox/sh
-echo "PATH=$PATH"
-export PATH=$PATH:/kaniko
-/kaniko/executor --context `pwd` --no-push'''
+          sh '/kaniko/executor --context `pwd` --destination 400603430485.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-java:latest'
         }
 
       }
