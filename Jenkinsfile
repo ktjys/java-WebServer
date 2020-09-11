@@ -1,10 +1,9 @@
 pipeline {
-  agent any
+  agent {
+    label 'jenkins-slave'
+  }
   stages {
     stage('build') {
-      agent {
-        label 'jenkins-slave'
-      }
       steps {
         sh 'mvn clean install -Dlicense.skip=true'
       }
