@@ -4,13 +4,13 @@ pipeline {
   }
   stages {
     stage('build') {
+      tools {
+        maven 'M3'
+      }
       steps {
         sh 'mvn clean install -Dlicense.skip=true'
       }
     }
 
-  }
-  tools {
-    maven 'M3'
   }
 }
