@@ -44,7 +44,8 @@ spec:
 
       }
       steps {
-        sh '''echo "PATH=$PATH"
+        sh '''#!/busybox/sh
+echo "PATH=$PATH"
 export PATH=$PATH:/kaniko
 /kaniko/executor --context `pwd` --no-push'''
       }
