@@ -1,8 +1,21 @@
 pipeline {
-  agent any
+  agent {
+    label 'jenkins-slave'
+  }
   stages {
+    stage('build') {
+      tools {
+        maven 'M3'
+      }
+      steps {
+        sh 'mvn clean install -Dlicense.skip=true'
+      }
+    }
+
     stage('build & SonarQube analysis') {
-      agent any
+      tools {
+        maven 'M3'
+      }
       steps {
         withSonarQubeEnv('sonar') {
           sh 'mvn clean package sonar:sonar'
