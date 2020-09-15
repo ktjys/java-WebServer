@@ -5,7 +5,7 @@ pipeline {
       agent any
       steps {
         withSonarQubeEnv('My SonarQube Server') {
-          sh 'sh "/home/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner -Dsonar.host.url=https://sonar.acldevsre.de -Dsonar.projectName=java-webserver -Dsonar.projectVersion=1.0 -Dsonar.projectKey=dodt:java-webserver -Dsonar.sources=src/main/java"'
+          sh 'sh "/home/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SONARQUBE/bin/sonar-scanner -Dsonar.host.url=https://sonar.acldevsre.de -Dsonar.projectName=java-webserver -Dsonar.projectVersion=1.0 -Dsonar.projectKey=dodt:java-webserver -Dsonar.sources=src/main/java"'
         }
 
       }
