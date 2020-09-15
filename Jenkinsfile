@@ -4,8 +4,8 @@ pipeline {
     stage('build & SonarQube analysis') {
       agent any
       steps {
-        withSonarQubeEnv('SONARQUBE') {
-          withMaven(maven: 'Maven 3.5') {
+        withSonarQubeEnv('sonar') {
+          withMaven(maven: 'M3') {
             sh 'mvn clean package sonar:sonar'
           }
 
