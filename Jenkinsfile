@@ -9,7 +9,7 @@ pipeline {
       }
       steps {
         withSonarQubeEnv('sonar') {
-          sh 'mvn clean package sonar:sonar'
+          sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
         }
 
       }
