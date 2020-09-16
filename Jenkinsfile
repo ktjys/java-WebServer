@@ -69,4 +69,10 @@ spec:
     }
 
   }
+  post {
+    always {
+      junit '**/reports/junit/*.xml'
+    }
+
+  }
 }
