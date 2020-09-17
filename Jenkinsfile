@@ -58,7 +58,7 @@ spec:
 
       }
       steps {
-        container(name: 'kaniko', shell: '/busybox/sh') {
+        container(name: 'kaniko') {
           unstash 'ARTIFACT'
           sh '/kaniko/executor --context `pwd` --destination 400603430485.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-java:latest'
         }
