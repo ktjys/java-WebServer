@@ -27,7 +27,6 @@ pipeline {
     stage('build image') {
       agent {
         kubernetes {
-          label 'kaniko'
           yaml '''
 kind: Pod
 metadata:
