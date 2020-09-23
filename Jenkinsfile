@@ -1,22 +1,7 @@
 pipeline {
   agent {
-    label 'jenkins-slave'
-  }
-  stages {
-    stage('build') {
-      tools {
-        maven 'M3'
-      }
-      steps {
-        sh 'mvn clean install -Dlicense.skip=true'
-        stash 'ARTIFACT'
-      }
-    }
-
-    stage('build image') {
-      agent {
-        kubernetes {
-          yaml '''
+    kubernetes {
+      yaml '''
 kind: Pod
 metadata:
   name: kaniko
@@ -43,9 +28,21 @@ spec:
     secret:
       secretName: aws-secret
 '''
-        }
+    }
 
+  }
+  stages {
+    stage('build') {
+      tools {
+        maven 'M3'
       }
+      steps {
+        sh 'mvn clean install -Dlicense.skip=true'
+        stash 'ARTIFACT'
+      }
+    }
+
+    stage('build image') {
       steps {
         container(name: 'kaniko') {
           unstash 'ARTIFACT'
