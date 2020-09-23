@@ -1,35 +1,7 @@
 pipeline {
   agent {
-    label 'jenkins-slave'
-  }
-  stages {
-    stage('build & SonarQube analysis') {
-      tools {
-        maven 'M3'
-      }
-      steps {
-        withSonarQubeEnv('sonar') {
-          sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
-          junit 'target/surefire-reports/*.xml'
-          stash 'ARTIFACT'
-        }
-
-      }
-    }
-
-    stage('Quality Gate') {
-      steps {
-        timeout(time: 1, unit: 'HOURS') {
-          waitForQualityGate true
-        }
-
-      }
-    }
-
-    stage('build image') {
-      agent {
-        kubernetes {
-          yaml '''
+    kubernetes {
+      yaml '''
 kind: Pod
 metadata:
   name: kaniko
@@ -56,12 +28,35 @@ spec:
     secret:
       secretName: aws-secret
 '''
+    }
+
+  }
+  stages {
+    stage('build & SonarQube analysis') {
+      tools {
+        maven 'M3'
+      }
+      steps {
+        withSonarQubeEnv('sonar') {
+          sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
+          junit 'target/surefire-reports/*.xml'
         }
 
       }
+    }
+
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 1, unit: 'HOURS') {
+          waitForQualityGate true
+        }
+
+      }
+    }
+
+    stage('build image') {
       steps {
         container(name: 'kaniko') {
-          unstash 'ARTIFACT'
           sh '/kaniko/executor --context `pwd` --destination 400603430485.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-java:latest'
         }
 
