@@ -38,14 +38,12 @@ spec:
       }
       steps {
         sh 'mvn clean install -Dlicense.skip=true'
-        stash 'ARTIFACT'
       }
     }
 
     stage('build image') {
       steps {
         container(name: 'kaniko') {
-          unstash 'ARTIFACT'
           sh '/kaniko/executor --context `pwd` --destination 400603430485.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-java:latest'
         }
 
