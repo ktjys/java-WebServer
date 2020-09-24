@@ -9,13 +9,13 @@ pipeline {
         terraform 'terraform-0.12.29'
       }
       steps {
+        sh 'terraform -v'
         withSonarQubeEnv('sonar') {
-          sh 'terraform -v'
           sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
-          junit 'target/surefire-reports/*.xml'
-          stash 'ARTIFACT'
         }
 
+        junit 'target/surefire-reports/*.xml'
+        stash 'ARTIFACT'
       }
     }
 
