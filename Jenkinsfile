@@ -6,9 +6,11 @@ pipeline {
     stage('build & SonarQube analysis') {
       tools {
         maven 'M3'
+        terraform 'terraform-0.12.29'
       }
       steps {
         withSonarQubeEnv('sonar') {
+          sh 'terraform -v'
           sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
           junit 'target/surefire-reports/*.xml'
           stash 'ARTIFACT'
