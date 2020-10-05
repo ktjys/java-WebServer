@@ -1,9 +1,6 @@
 pipeline {
   agent {
-    node {
-      label 'master0'
-    }
-
+    label 'master0'
   }
   stages {
     stage('build & SonarQube analysis') {
