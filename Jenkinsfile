@@ -48,7 +48,7 @@ spec:
     stage('Quality Gate') {
       steps {
         timeout(time: 1, unit: 'HOURS') {
-          waitForQualityGate true
+          waitForQualityGate(abortPipeline: true, webhookSecretId: 'sonar-test-hook')
         }
 
       }
