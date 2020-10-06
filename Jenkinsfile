@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    label 'master0'
-  }
+  agent any
   stages {
     stage('build & SonarQube analysis') {
       tools {
