@@ -54,14 +54,5 @@ spec:
       }
     }
 
-    stage('build image') {
-      steps {
-        container(name: 'kaniko') {
-          sh '/kaniko/executor --context `pwd` --destination 400603430485.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-java:latest'
-        }
-
-      }
-    }
-
   }
 }
