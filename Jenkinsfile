@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    label 'jenkins-jenkins-slave'
+  }
   stages {
     stage('build & SonarQube analysis') {
       tools {
@@ -9,6 +11,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
           sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
           junit 'target/surefire-reports/*.xml'
+          stash 'ARTIFACT'
         }
 
       }
