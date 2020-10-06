@@ -9,7 +9,6 @@ pipeline {
         withSonarQubeEnv('sonar') {
           sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
           junit 'target/surefire-reports/*.xml'
-          stash 'ARTIFACT'
         }
 
       }
