@@ -6,7 +6,7 @@ pipeline {
 
   }
   stages {
-    stage('build & SonarQube analysis') {
+    stage('Build & SonarQube analysis') {
       tools {
         maven 'M3'
       }
