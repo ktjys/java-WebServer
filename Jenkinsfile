@@ -6,7 +6,7 @@ pipeline {
         maven 'M3'
       }
       steps {
-        sh 'mvn clean build'
+        sh 'mvn clean package'
       }
     }
 
