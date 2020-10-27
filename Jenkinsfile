@@ -1,6 +1,15 @@
 pipeline {
   agent any
   stages {
+    stage('Build') {
+      tools {
+        maven 'M3'
+      }
+      steps {
+        sh 'mvn clean build'
+      }
+    }
+
     stage('SonarQube analysis') {
       environment {
         SCANNER_HOME = 'SonarQubeScanner'
