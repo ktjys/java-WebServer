@@ -14,7 +14,7 @@ pipeline {
 
           sh "echo ${scannerHome}"
           withSonarQubeEnv('sonar') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.organization=${env.ORGANIZATION} -Dsonar.java.binaries=build/classes/java/ -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.sources=. -Dsonar.login=${env.SONAR_AUTH_TOKEN}"
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.organization=${env.ORGANIZATION} -Dsonar.java.binaries=build/classes/java/ -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.sources=. "
           }
         }
 
