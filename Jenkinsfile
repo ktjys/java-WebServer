@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    node {
-      label 'jenkins-jenkins-slave'
-    }
-
-  }
+  agent any
   stages {
     stage('SonarQube analysis') {
       environment {
