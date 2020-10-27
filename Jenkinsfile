@@ -21,7 +21,7 @@ pipeline {
 
           sh "echo ${scannerHome}"
           withSonarQubeEnv('sonar') {
-            withEnv([SONAR_AUTH_TOKEN = d9cb2418cd8bf7c41cf608d82796004a840e5ac0]){
+            withEnv(["SONAR_AUTH_TOKEN=d9cb2418cd8bf7c41cf608d82796004a840e5ac0"]){
               sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.java.binaries=target/classes -Dsonar.sources=. "
             }
           }
