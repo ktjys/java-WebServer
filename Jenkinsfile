@@ -13,8 +13,7 @@ pipeline {
       steps {
         withSonarQubeEnv('sonar') {
           withVault(configuration: [vaultUrl: 'https://dodt-vault.acldevsre.de',  vaultCredentialId: 'approle-for-vault', engineVersion: 2], vaultSecrets: [[path: 'jenkins/sonar-token', secretValues: [[envVar: 'SONAR_AUTH_TOKEN', vaultKey: 'token']]]]) {
-            sh 'echo ${SONAR_AUTH_TOKEN}'
-            sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver -Dsonar.login=${SONAR_AUTH_TOKEN}'
+            sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
           }
 
           junit 'target/surefire-reports/*.xml'
