@@ -22,7 +22,7 @@ pipeline {
 
           sh "echo ${scannerHome}"
           withSonarQubeEnv('sonar') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.sources=. "
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.java.binaries=target/classes -Dsonar.sources=. "
           }
         }
 
