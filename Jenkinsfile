@@ -10,17 +10,11 @@ pipeline {
       }
       steps {
         script {
-          def scannerhome=tool 'sonarscanner'
+          def scannerHome=tool 'sonarscanner'
 
-
+          sh "echo ${scannerHome}"
           withSonarQubeEnv('sonar') {
-            sh '''${scannerhome}/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION        \\
--Dsonar.java.binaries=build/classes/java/   \\
--Dsonar.projectKey=$PROJECT_NAME    \\
--Dsonar.sources=.\\
--Dsonar.login=$SONAR_AUTH_TOKEN
-
-'''
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION -Dsonar.java.binaries=build/classes/java/ -Dsonar.projectKey=$PROJECT_NAME -Dsonar.sources=. -Dsonar.login=$SONAR_AUTH_TOKEN"
           }
         }
 
