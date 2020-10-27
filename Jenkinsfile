@@ -14,14 +14,19 @@ pipeline {
         SONAR_AUTH_TOKEN = 'd9cb2418cd8bf7c41cf608d82796004a840e5ac0'
       }
       steps {
-        withSonarQubeEnv('sonar') {
-          sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION        \\
- -Dsonar.java.binaries=build/classes/java/   \\
-      -Dsonar.projectKey=$PROJECT_NAME    \\
-     -Dsonar.sources=.\\
-    -Dsonar.login=$SONAR_AUTH_TOKEN
+        script {
+          def scannerhome=tool 'sonarscanner'
+
+
+          withSonarQubeEnv('sonar') {
+            sh '''$scannerhome/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION        \\
+-Dsonar.java.binaries=build/classes/java/   \\
+-Dsonar.projectKey=$PROJECT_NAME    \\
+-Dsonar.sources=.\\
+-Dsonar.login=$SONAR_AUTH_TOKEN
 
 '''
+          }
         }
 
       }
