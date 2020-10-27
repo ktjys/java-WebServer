@@ -14,7 +14,6 @@ pipeline {
       environment {
         SCANNER_HOME = 'SonarQubeScanner'
         PROJECT_NAME = 'dodt:java-webserver-test'
-        SONAR_AUTH_TOKEN = 'd9cb2418cd8bf7c41cf608d82796004a840e5ac0'
       }
       steps {
         script {
@@ -22,7 +21,9 @@ pipeline {
 
           sh "echo ${scannerHome}"
           withSonarQubeEnv('sonar') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.java.binaries=target/classes -Dsonar.sources=. "
+            withEnv([SONAR_AUTH_TOKEN = d9cb2418cd8bf7c41cf608d82796004a840e5ac0]){
+              sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.java.binaries=target/classes -Dsonar.sources=. "
+            }
           }
         }
 
