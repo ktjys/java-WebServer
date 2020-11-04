@@ -32,6 +32,12 @@ pipeline {
       }
     }
 
+    stage('Approval') {
+      steps {
+        input(message: 'Build image process?', submitter: 'r.baek')
+      }
+    }
+
     stage('build image') {
       agent {
         kubernetes {
