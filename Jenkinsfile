@@ -16,15 +16,16 @@ pipeline {
         PROJECT_NAME = 'dodt:java-webserver-test'
       }
       steps {
-        script {
-          def scannerHome=tool 'sonar'
+        withSonarQubeEnv('sonar') {
+          script {
+            def scannerHome=tool 'sonar'
 
-          sh "echo ${scannerHome}"
-          withSonarQubeEnv('sonar') {
+            sh "echo ${scannerHome}"
             withVault(configuration: [vaultUrl: 'https://dodt-vault.acldevsre.de',  vaultCredentialId: 'approle-for-vault', engineVersion: 2], vaultSecrets: [[path: 'jenkins/sonar-token', secretValues: [[envVar: 'SONAR_AUTH_TOKEN', vaultKey: 'token']]]]) {
               sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${env.PROJECT_NAME} -Dsonar.java.binaries=target/classes -Dsonar.sources=. "
             }
           }
+
         }
 
       }
