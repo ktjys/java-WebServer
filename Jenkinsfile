@@ -11,7 +11,7 @@ pipeline {
         maven 'M3'
       }
       steps {
-        withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar') {
+        withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar-token') {
           sh 'mvn clean package sonar:sonar -Dsonar.projectKey=dodt:java-webserver'
           junit 'target/surefire-reports/*.xml'
           stash 'ARTIFACT'
